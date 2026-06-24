@@ -1,0 +1,73 @@
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+
+body.light-mode{
+    background-image: url(/asserts/img_light.png);
+    color:#000000;
+}
+
+
+.light-mode .card{
+    background: linear-gradient(to right,#0956e4 ,#FFFFFF);
+    color:black;
+}
+
+.light-mode .navbar-brand{
+    color:black;
+}
+
+#themeBtn{
+    width:48px;
+    height:48px;
+    border:none;
+    /* border-radius:50%; */
+    cursor:pointer;
+}
+
+body.light-mode #themeBtn{
+    background:white;
+    color:#000000;
+    box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+
+body.dark-mode #themeBtn{
+    background-color: #000000;
+    color:white;
+    backdrop-filter:blur(10px);
+}
+
+.btn-custom{
+    background: #0956e4;
+    color: #FFFFFF;
+    padding: 10px 20px 10px 20px;
+}
+
+.btn-custom:hover{
+    background-color: aliceblue;
+    color:rgb(255, 255, 255)
+}
+
+.hero{
+    padding:100px 20px;
+}
+
+body.dark-mode{
+    background-image: url(/asserts/img_dark.png);
+    color:white;
+}
+
+.dark-mode .navbar-brand{
+    color:#FFFFFF;
+}
+
+.dark-mode .card{
+    background:#fbf7f7;
+    color:rgb(29, 28, 28);
+}
+
+.dark-mode footer{
+    background:black !important;
+}
