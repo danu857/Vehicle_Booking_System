@@ -21,16 +21,16 @@
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-2 gap-2 px-4 " href="/pages/index.html">Vehicle Service</a>
             <div>
-                <a href="/pages/login.html" class="btn btn-outline-dark py-2">Login</a>
+                <a href="/pages/login.html" class="btn btn-outline-dark btn-custom fw-bold py-2">Login</a>
 
-                <button class="btn btn-dark" id="themeBtn">
+                <button class="btn btn-dark py-2" id="themeBtn">
                     <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <div class="container py-5">
+    <div class="container-fluid py-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-lg border-0">
@@ -42,17 +42,53 @@
                             <div class="mb-3">
                                 <label class="form-label">Full Name</label>
                                 <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                                <small id="nameError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Email Id</label>
                                 <input type="email" id="email" class="form-control" placeholder="Enter you mail id" required>
+                                <small id="emailError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Phone Number</label>
                                 <input type="tel" id="phone" class="form-control" placeholder="Enter your number" required>
+                                <small id="phoneError" class="text-danger"></small>
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea id="address" class="form-control" rows="3" placeholder="Enter your address" required></textarea>
+                                <small id="addressError" class="text-danger"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="password" class="form-control">
+                                        <span class="input-group-text" id="togglePassword">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </span>
+                                </div>
+                                 <small id="passwordError" class="text-danger"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="password" class="form-control">
+                                        <span class="input-group-text" id="togglePassword">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </span>
+                                </div>
+                                <small id="confirmPasswordError" class="text-danger"></small>                            
+                            </div>
+
+                            <button id="registerBtn" class="btn btn-dark w-100">Register</button>
+                            <p class="text-center mt-2">Already have an account?
+                                <a class="text-dark" href="/pages/login.html">Login</a>
+                            </p>
                         </form>
                     </div>
                 </div>
@@ -60,7 +96,8 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/register.js"></script>
 
-    
 </body>
 </html>

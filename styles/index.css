@@ -9,7 +9,6 @@ body.light-mode{
     color:#000000;
 }
 
-
 .light-mode .card{
     background: linear-gradient(to right,#0956e4 ,#FFFFFF);
     color:black;
@@ -23,7 +22,6 @@ body.light-mode{
     width:48px;
     height:48px;
     border:none;
-    /* border-radius:50%; */
     cursor:pointer;
 }
 

@@ -1,0 +1,30 @@
+body.light-mode{
+    background: linear-gradient(135deg, #0956e4 ,#f4f5f5 );
+}
+
+body.dark-mode{
+    background-image: linear-gradient(135deg, #000000 , #aeabab );
+}
+
+.light-mode .navbar-brand{
+    font-family: 'Times New Roman', Times, serif;
+    color:#000000
+}
+
+.dark-mode .btn-custom{
+    color:white;
+}
+
+.card{
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    right:0;
+}
+
+.form-control{
+    border-radius:10px;
+}
+
+textarea{
+    resize:none;
+}

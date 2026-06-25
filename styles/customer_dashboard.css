@@ -1,0 +1,7 @@
+body{
+    min-height:100vh;
+}
+
+body.light-mode{
+    background: linear-gradient(135deg, #0956e4 ,#f4f5f5 );
+}

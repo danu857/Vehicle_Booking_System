@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "VS001",
+      "email": "support@vehicleservice.com",
+      "password": "support123",
+      "role": "support"
+    },
+    {
+      "name": "Danusree K S",
+      "email": "danu@gmail.com",
+      "phone": "9877766612",
+      "address": "Nehru nagar,\nCoimbatore",
+      "password": "@Danu123",
+      "role": "customer",
+      "id": "oelGcWxYbOQ"
+    },
+    {
+      "name": "Devasree K",
+      "email": "deva@gmail.com",
+      "phone": "9876543210",
+      "address": "Nehru nagar,\nCoimbatore",
+      "password": "@Deva123",
+      "role": "customer",
+      "id": "B7lhxW1ndy8"
+    }
+  ],
+  "bookings": [],
+  "services": [
+    {
+      "id": "S001",
+      "name": "General Service",
+      "price": 1500
+    },
+    {
+      "id": "S002",
+      "name": "Oil Change",
+      "price": 1000
+    },
+    {
+      "id": "S003",
+      "name": "Car Wash",
+      "price": 500
+    },
+    {
+      "id": "S004",
+      "name": "Wheel Alignment",
+      "price": 800
+    },
+    {
+      "id": "S005",
+      "name": "Brake Service",
+      "price": 1200
+    },
+    {
+      "id": "S006",
+      "name": "AC Service",
+      "price": 1800
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

@@ -1,0 +1,43 @@
+body{
+    min-height:100vh;
+}
+
+body.light-mode{
+    background-image:url("/asserts/img_light.png");
+    opacity: 10px;
+}
+
+body.dark-mode{
+    background-image:url("/asserts/img_dark.png");
+    color:white;
+}
+
+.card{
+    border:none;
+    border-radius:20px;
+}
+
+.light-mode .card{
+    background:linear-gradient(to right,#0956e4,#ffffff);
+}
+
+.dark-mode .card{
+    background:#f5f5f5;
+    color:black;
+}
+
+.dark-mode .navbar-brand{
+    color:white;
+}
+
+.light-mode .navbar-brand{
+    color:black;
+}
+
+.input-group-text{
+    cursor:pointer;
+}
+
+.text-danger{
+    font-size:14px;
+}
