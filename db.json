@@ -25,7 +25,30 @@
       "id": "B7lhxW1ndy8"
     }
   ],
-  "bookings": [],
+  "bookings": [
+    {
+      "userId": "oelGcWxYbOQ",
+      "customerName": "Danusree K S",
+      "service": "Oil Change",
+      "vehicleNumber": "TN37A6673",
+      "vehicleType": "Bike",
+      "bookingDate": "27-06-2026",
+      "amount": "1000",
+      "status": "Pending",
+      "id": "FOeTzncN3yI"
+    },
+    {
+      "userId": "oelGcWxYbOQ",
+      "customerName": "Danusree K S",
+      "service": "Car Wash",
+      "vehicleNumber": "TN37A6673",
+      "vehicleType": "Car",
+      "bookingDate": "2026-06-27T11:30",
+      "amount": "700",
+      "status": "Pending",
+      "id": "DryUsmW4Kyw"
+    }
+  ],
   "services": [
     {
       "id": "S001",

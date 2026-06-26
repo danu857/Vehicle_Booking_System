@@ -6,149 +6,188 @@
     <title>Customer Dashboard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/styles/customer_dashboard.css">
 </head>
+
 <body class="light-mode">
-    <nav class="navbar navbar-expand-lg navbar-dark custom">
+    <nav class="navbar navbar-expand-lg navbar-dark custom py-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3">Vehicle Service</a>
 
-            <div class="d-flex align-items-center g-3">
-                <span id="welcomeUser" class="text-white fw-bold"></span>
-
-                <button class=""btn btn-dark id="themeBtn">
+            <div class="d-flex align-items-center">
+                <span id="welcomeUser" class="text-white fw-bold me-4"></span>
+                <button class="btn btn-dark me-2 py-2" id="themeBtn">
                     <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
                 </button>
 
-                <button class="btn btn-danger" id="logoutBtn">Logout</button>
+                <button class="btn btn-danger py-2" id="logoutBtn">logout</button>
             </div>
         </div>
     </nav>
 
     <div class="container py-4">
-        <div class="col g-3 mb-4">
-            <div class="card stat-card text-center ">
-                <div class="card-body">
-                    <h5>TOTAL</h5>
-                    <h2 id="totalBookings">0</h2>
+        <div class="row g-4 mb-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card stat-card-T text-center">
+                    <div class="card-body">
+                        <i class="bi bi-card-list fs-1"></i>
+                        <h5>Total</h5>
+                        <h2 id="totalBookings">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card stat-card-P text-center">
+                    <div class="card-body">
+                        <i class="bi bi-hourglass-split fs-1"></i>
+                        <h5>Pending</h5>
+                        <h2 id="pendingBookings">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card stat-card-A text-center">
+                    <div class="card-body">
+                        <i class="bi bi-check-circle-fill fs-1"></i>
+                        <h5>Accepted</h5>
+                        <h2 id="acceptedBookings">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card stat-card-C text-center">
+                    <div class="card-body">
+                        <i class="bi bi-check2-all fs-1"></i>
+                        <h5>Completed</h5>
+                        <h2 id="completedBookings">0</h2>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="row g-3mb-4">
-            <div class="card stat-card text-center ">
-                <div class="card-body">
-                    <h5>PENDING</h5>
-                    <h2 id="pendingBookings">0</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row g-3mb-4">
-            <div class="card stat-card text-center ">
-                <div class="card-body">
-                    <h5>ACCEPTED</h5>
-                    <h2 id="accceptedBookings">0</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row g-3mb-4">
-            <div class="card stat-card text-center ">
-                <div class="card-body">
-                    <h5>COMPLETED</h5>
-                    <h2 id="completedBookings">0</h2>
-                </div>
-            </div>
-        </div>
-
 
         <div class="d-flex justify-content-end mb-4">
-            <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#bookingModal">
-                <i class="bi bi-plus-circle"></i>Book Service
+            <button class="btn btn-primary" id="bookServiceBtn" data-bs-toggle="modal" data-bs-target="#bookingModal">
+                <i class="bi bi-plus-circle me-2"></i>Book Service
             </button>
         </div>
 
-        <h3 class="mb-3">Active Bookings</h3>
-        <div class="row g-4" id="bookingContainer"></div>
+        <div class="booking-nav mb-4">
+            <button id="activeTab" class="booking-tab">
+                <i class="bi bi-clock-history"></i>Active Bookings
+            </button>
 
-        <h3 class="mt-5 mb-3">Booking History</h3>
-        <div class="row g-4" id="historyContainer"></div>
+            <button id="historyTab" class="booking-tab">
+                <i class="bi bi-check2-all me-2"></i>Booking History
+            </button>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-8 mb-2">
+                <input type="text" id="searchBooking" class="form" placeholder="Service">
+            </div>
+
+            <div class="col-lg-4">
+                <select id="sortBooking" class="form-select">
+                    <option value="latest">Latest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="service">Service Name</option>
+                    <option value="status">Status</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-4" id="bookingContainer"></div>
     </div>
 
     <div class="modal fade" id="bookingModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Book Service</h5>
-
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <input type="hidden" id="bookingId">
-                    <div class="mb-3">
-                        <label>Services Available</label>
-
-                            <select id="service" class="form-select">
-                                <option value="">Select Service</option>
-                                <option value="General Service" data-price="1500">General Service  ---Rs.1500</option>
-                                <option value="Oil Change" data-price="1000">Oil Change  ---Rs.1000</option>
-                                <option value="Car Wash" data-price="700">General Service  ---Rs.700</option>
-                                <option value="Wheel Alignment" data-price="800">Wheel Alignment  ---Rs.800</option>
-                                <option value="Brake Services" data-price="1200">Brake Service  ---Rs.1200</option>
-                                <option value="AC Service" data-price="1800">AC Service  ---Rs.1800</option>
-                            </select>
-                        <small id="serviceError" class="text-danger"></small>
+                <form id="bookingForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Book Service</h5>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Vehicle Number</label>
-                        <input type="text" id="vehicleNumber" class="form-control">
-                        <small id="vehicleNumberError" class="text-danger"></small>
+                    <div class="modal-body">
+                        <input type="hidden" id="bookingId">
+                            <div class="mb-3">
+                                <label class="form-label">Service</label>
+                                    <select id="service" class="form-select">
+                                        <option value="">Select Service</option>
+                                        <option value="General Service" data-price="1500">General Service</option>
+                                        <option value="Oil Change" data-price="1000">Oil Change</option>
+                                        <option value="Car Wash" data-price="700">Car Wash</option>
+                                        <option value="Wheel Alignment" data-price="800">Wheel Alignment</option>
+                                        <option value="Brake Services" data-price="1200">Brake Services</option>
+                                        <option value="AC Service" data-price="1800">AC Service</option>
+                                    </select>
+                                <small id="serviceError" class="text-danger"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Vehicle Number</label>
+                                    <input type="text" id="vehicleNumber" class="form-control">
+                                        <small id="vehicleNumberError" class="text-danger"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Vehicle Type</label>
+                                    <select id="vehicleType" class="form-select">
+                                        <option value="">Select Type</option>
+                                        <option>Bike</option>
+                                        <option>Car</option>
+                                    </select>
+                                <small id="vehicleTypeError" class="text-danger"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Booking Date</label>
+                                    <input type="datetime-local" id="bookingDate" class="form-control">
+                                        <small id="bookingDateError" class="text-danger"></small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Amount</label>
+                                    <input type="text" id="amount" class="form-control" readonly>
+                            </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Vehicle Type</label>
-
-                        <select id="vehicleType" class="form-select">
-                            <option value="">Select Type</option>
-                            <option>Bike</option>
-                            <option>Car</option>
-                        </select>
-                        <small id="vehicleTypeError" class="text-danger"></small>
+                    <div class="modal-footer">
+                        <button type="submit" id="saveBookingBtn" class="btn btn-success">
+                            Save Booking
+                        </button>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Date</label>
-                        <input type="datetime" id="bookingDate" class="form-control">
-                        <small id="bookingDateError" class="text-danger"></small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Amount</label>
-                        <input type="text" id="amount" class="form-control" readonly>
-                    </div>
-                </div>
-
-                 <div class="modal-footer">
-                    <button class="btn btn-success" id="saveBookingBtn">Book</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="/scripts/customer_dashboard.js"></script>
+    <div class="modal fade" id="detailsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Booking Details</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
+                <div class="modal-body" id="detailsBody"></div>
 
+                <div class="modal-footer" id="detailsFooter"></div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="/scripts/customer_dashboard.js"></script>
 </body>
 </html>

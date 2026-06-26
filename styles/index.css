@@ -12,6 +12,7 @@ body.light-mode{
 .light-mode .card{
     background: linear-gradient(to right,#0956e4 ,#FFFFFF);
     color:black;
+    border-radius: 20px;
 }
 
 .light-mode .navbar-brand{
@@ -64,7 +65,13 @@ body.dark-mode{
 .dark-mode .card{
     background:#fbf7f7;
     color:rgb(29, 28, 28);
+    border-radius: 20px;
 }
+
+.card:hover{
+    transform: translateY(-5px);
+}
+
 
 .dark-mode footer{
     background:black !important;
