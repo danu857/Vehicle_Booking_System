@@ -189,12 +189,12 @@ body.dark_mode{
 }
 
 body.dark-mode{
-    background:#121212;
+    background:linear-gradient(135deg,#141414,#4b4b4b);
     color:#fff;
 }
 
-body.dark-mode .navbar{
-    background:#1d1d1d;
+body.dark-mode .sidebar{
+    background:linear-gradient(135deg,rgb(85, 82, 82),gray);
 }
 
 body.dark-mode .card{
@@ -210,9 +210,9 @@ body.dark-mode .booking-card p{
     color:#d7d7d7;
 }
 
-body.dark-mode .stat-card{
+/* body.dark-mode .stat-card{
     background:#1d1d1d;
-}
+} */
 
 body.dark-mode .form-control,
 body.dark-mode .form-select{

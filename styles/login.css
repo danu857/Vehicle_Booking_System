@@ -43,3 +43,7 @@ body.dark-mode{
 .text-danger{
     font-size:14px;
 }
+
+#loginBtn{
+    background-color: #073892;
+}

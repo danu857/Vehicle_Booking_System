@@ -3,7 +3,6 @@ body{
     overflow-x:hidden;
 }
 
-
 body.light-mode{
     background-image: url(/assets/img_light.png);
     color:#000000;
@@ -71,7 +70,6 @@ body.dark-mode{
 .card:hover{
     transform: translateY(-5px);
 }
-
 
 .dark-mode footer{
     background:black !important;
