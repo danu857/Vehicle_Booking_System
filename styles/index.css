@@ -5,7 +5,7 @@ body{
 
 
 body.light-mode{
-    background-image: url(/asserts/img_light.png);
+    background-image: url(/assets/img_light.png);
     color:#000000;
 }
 
@@ -46,7 +46,7 @@ body.dark-mode #themeBtn{
 
 .btn-custom:hover{
     background-color: aliceblue;
-    color:rgb(255, 255, 255)
+    color:rgb(0, 0, 0)
 }
 
 .hero{
@@ -54,7 +54,7 @@ body.dark-mode #themeBtn{
 }
 
 body.dark-mode{
-    background-image: url(/asserts/img_dark.png);
+    background-image: url(/assets/img_dark.png);
     color:white;
 }
 

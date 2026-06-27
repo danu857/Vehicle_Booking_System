@@ -23,30 +23,56 @@
       "password": "@Deva123",
       "role": "customer",
       "id": "B7lhxW1ndy8"
+    },
+    {
+      "name": "Hari",
+      "email": "hari@gmail.com",
+      "phone": "6543217890",
+      "address": "Kovilmedu,\nCoimbatore",
+      "password": "@Hari123",
+      "role": "customer",
+      "id": "U98ng5matlo"
+    },
+    {
+      "name": "Sindhu",
+      "email": "sindhu@gmail.com",
+      "phone": "9087654321",
+      "address": "Kavundampalayam,\nCoimbatore",
+      "password": "@Sindhu123",
+      "role": "customer",
+      "id": "slpx0zz2G74"
     }
   ],
   "bookings": [
     {
       "userId": "oelGcWxYbOQ",
       "customerName": "Danusree K S",
-      "service": "Oil Change",
-      "vehicleNumber": "TN37A6673",
-      "vehicleType": "Bike",
-      "bookingDate": "27-06-2026",
-      "amount": "1000",
-      "status": "Pending",
-      "id": "FOeTzncN3yI"
-    },
-    {
-      "userId": "oelGcWxYbOQ",
-      "customerName": "Danusree K S",
       "service": "Car Wash",
       "vehicleNumber": "TN37A6673",
       "vehicleType": "Car",
-      "bookingDate": "2026-06-27T11:30",
+      "bookingDate": "2026-06-28T11:30",
       "amount": "700",
-      "status": "Pending",
-      "id": "DryUsmW4Kyw"
+      "status": "Rejected",
+      "rejectReason": "Slot not available",
+      "suggestedDate": "2026-06-28",
+      "suggestedTime": "17:00",
+      "supportRemarks": "",
+      "id": "pLvNYTnUQ8M"
+    },
+    {
+      "userId": "B7lhxW1ndy8",
+      "customerName": "Devasree K",
+      "service": "Brake Services",
+      "vehicleNumber": "TN37A4430",
+      "vehicleType": "Bike",
+      "bookingDate": "2026-06-29T17:30",
+      "amount": "1200",
+      "status": "Completed",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "zwR9wjne6JE"
     }
   ],
   "services": [

@@ -228,20 +228,18 @@ async function saveUser() {
             JSON.stringify(users)
         );
 
-        Swal.fire({
+        await Swal.fire({
             icon: "success",
             title: "Registration Successful",
-            timer: 1500,
-            showConfirmButton: false
-        }).then(() => {
-
-            window.location.href = "login.html";
-
+            text: "Your account has been created successfully.",
+            confirmButtonText: "Go to Login"
         });
 
-    }
-    catch (error) {
+        window.location.href = "/pages/login.html";
 
+    }
+    catch (error) 
+    {
         Swal.fire({
             icon: "error",
             title: "Server Error",

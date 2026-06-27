@@ -75,8 +75,14 @@ $(document).ready(function(){
                 "support"
             );
 
-            window.location.href="/pages/service_dashboard.html";
-            return;
+            Swal.fire({
+                icon:"success",
+                title:"Login successful",
+                timer:1500,
+                showCongifuration:false
+            }).then(()=>{
+                window.location.href="/pages/service_dashboard.html";
+            });
         }
 
         try{
