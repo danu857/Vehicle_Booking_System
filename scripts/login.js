@@ -1,3 +1,4 @@
+// THEME TOGGLE
 const themeToggle = document.getElementById("themeBtn");
 
 themeToggle.addEventListener("click", () => {
@@ -23,6 +24,7 @@ $(document).ready(function(){
         $("#"+id+"Error").text("");
     });
 
+    // PASSWORD VISIBILITY TOGGLE
     $("#togglePassword").click(function(){
         const password=$("#password");
         const icon=$(this).find("i");
@@ -41,6 +43,7 @@ $(document).ready(function(){
         }
     });
 
+        // LOGIN FUNCTION
     $("#loginBtn").click(async function(e){
         e.preventDefault();
 
@@ -48,6 +51,7 @@ $(document).ready(function(){
         const email=$("#email").val().trim();
         const password=$("#password").val().trim();
 
+        // Check for empty email
         $(".text-danger").text("");
         if(email==="")
         {
@@ -68,6 +72,7 @@ $(document).ready(function(){
             return;
         }
 
+        // Service staff login
         if(email==="support@vehicleservice.com" && password==="support123")
         {
             localStorage.setItem(
@@ -79,9 +84,9 @@ $(document).ready(function(){
                 icon:"success",
                 title:"Login successful",
                 timer:1500,
-                showCongifuration:false
+                showConfirmButton:false
             }).then(()=>{
-                window.location.href="/pages/service_dashboard.html";
+                window.location.href="../pages/service_dashboard.html";
             });
         }
 
@@ -118,7 +123,7 @@ $(document).ready(function(){
                 timer:1500,
                 showCongifuration:false
             }).then(()=>{
-                window.location.href="/pages/customer_dashboard.html";
+                window.location.href="../pages/customer_dashboard.html";
             });
         }
         catch(error)

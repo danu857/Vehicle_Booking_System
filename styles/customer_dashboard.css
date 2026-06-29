@@ -15,12 +15,17 @@ body.light-mode{
 }
 
 body.dark-mode{
-    background:linear-gradient(135deg,#141414,#4b4b4b);
+    background:linear-gradient(135deg,#000000,#0d2063);
 }
 
 .custom{
     background: linear-gradient(to right, #3a47d5 0%, #00d2ff 100%);
     box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.dark-mode .custom{
+    background:linear-gradient(135deg,#00145a,#1b3596);
+
 }
 
 .stat-card{
@@ -56,26 +61,9 @@ body.dark-mode{
     font-size:34px;
     font-weight:bold;
 }
-/* 
-.stat-card-P{
-    background:linear-gradient(135deg,#f7b733,#eb9a83);
-}
-
-.stat-card-T{
-    background:linear-gradient(135deg,#36d1dc,#5b86e5);
-}
-
-.stat-card-C{
-    background:linear-gradient(135deg,#11998e,#38ef7d);
-}
-
-.stat-card-A{
-    background:linear-gradient(135deg,#8E2DE2,#4A00E0);
-} */
 
 #bookServiceBtn{
     padding:10px 20px;
-    /* border-radius:30px; */
 }
 
 .booking-nav{
@@ -248,4 +236,8 @@ body.dark-mode{
     margin-bottom:10px;
 }
 
+}
+
+.summary-card{
+    background-image: linear-gradient(-225deg, #337dee 0%, #B8DCFF 48%, #6BBBFF 100%);
 }

@@ -41,6 +41,51 @@
       "password": "@Sindhu123",
       "role": "customer",
       "id": "slpx0zz2G74"
+    },
+    {
+      "name": "Mano",
+      "email": "mano@gmail.com",
+      "phone": "9087654321",
+      "address": "Perur,Coimbatore",
+      "password": "@Mano123",
+      "role": "customer",
+      "id": "q2MVDS22sYs"
+    },
+    {
+      "name": "Aru",
+      "email": "aru@gmail.com",
+      "phone": "8097654321",
+      "address": "north cbe,Cbe",
+      "password": "@Aru1234",
+      "role": "customer",
+      "id": "wo5f2Y4OpMs"
+    },
+    {
+      "name": "Gokul",
+      "email": "gokul@gmail.com",
+      "phone": "7890123456",
+      "address": "Coimbatore",
+      "password": "@Gokul123",
+      "role": "customer",
+      "id": "5rU8ZtCFPKU"
+    },
+    {
+      "name": "Kavitha",
+      "email": "kavitha@gmail.com",
+      "phone": "7890123456",
+      "address": "Nehru nagar,\nCoimbatore",
+      "password": "@Kavitha123",
+      "role": "customer",
+      "id": "EP6uGSdpvjc"
+    },
+    {
+      "name": "Priya",
+      "email": "priya@gmail.com",
+      "phone": "9877766612",
+      "address": "Coimbatore",
+      "password": "@Priya123",
+      "role": "customer",
+      "id": "RAvJ8jgAj9E"
     }
   ],
   "bookings": [
@@ -73,39 +118,113 @@
       "suggestedTime": "",
       "supportRemarks": "",
       "id": "zwR9wjne6JE"
+    },
+    {
+      "userId": "U98ng5matlo",
+      "customerName": "Hari",
+      "service": "General Service",
+      "vehicleNumber": "TN37A7366",
+      "vehicleType": "Bike",
+      "bookingDate": "2026-07-02T20:30",
+      "amount": "1500",
+      "status": "Accepted",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "sQJLmvyZinM"
+    },
+    {
+      "userId": "slpx0zz2G74",
+      "customerName": "Sindhu",
+      "service": "Wheel Alignment",
+      "vehicleNumber": "TN37B1706",
+      "vehicleType": "Car",
+      "bookingDate": "2026-07-01T16:30",
+      "amount": "800",
+      "status": "Pending",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "pM93hPXFmIQ"
+    },
+    {
+      "userId": "EP6uGSdpvjc",
+      "customerName": "Kavitha",
+      "service": "General Service",
+      "vehicleNumber": "TN37B7603",
+      "vehicleType": "Bike",
+      "bookingDate": "2026-07-04T17:30",
+      "amount": "1500",
+      "status": "Pending",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "egnmoysyy4s"
+    },
+    {
+      "userId": "wo5f2Y4OpMs",
+      "customerName": "Aru",
+      "service": "Car Wash",
+      "vehicleNumber": "TN37A6677",
+      "vehicleType": "Car",
+      "bookingDate": "2026-07-06T18:30",
+      "amount": "700",
+      "status": "Pending",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "SPYioZ2xdoQ"
+    },
+    {
+      "userId": "RAvJ8jgAj9E",
+      "customerName": "Priya",
+      "service": "Oil Change",
+      "vehicleNumber": "TN37A6678",
+      "vehicleType": "Bike",
+      "bookingDate": "2026-07-03T20:07",
+      "amount": "1000",
+      "status": "Pending",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "Kt-EQ_GoS9w"
+    },
+    {
+      "userId": "RAvJ8jgAj9E",
+      "customerName": "Priya",
+      "service": "Car Wash",
+      "vehicleNumber": "TN37A6789",
+      "vehicleType": "Car",
+      "bookingDate": "2026-07-02T20:00",
+      "amount": "700",
+      "status": "Pending",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "ooTjqra_WDU"
+    },
+    {
+      "userId": "5rU8ZtCFPKU",
+      "customerName": "Gokul",
+      "service": "Wheel Alignment",
+      "vehicleNumber": "TN38A4567",
+      "vehicleType": "Car",
+      "bookingDate": "2026-07-07T17:15",
+      "amount": "800",
+      "status": "Pending",
+      "rejectReason": "",
+      "suggestedDate": "",
+      "suggestedTime": "",
+      "supportRemarks": "",
+      "id": "_a_sOMMqK2g"
     }
   ],
-  "services": [
-    {
-      "id": "S001",
-      "name": "General Service",
-      "price": 1500
-    },
-    {
-      "id": "S002",
-      "name": "Oil Change",
-      "price": 1000
-    },
-    {
-      "id": "S003",
-      "name": "Car Wash",
-      "price": 500
-    },
-    {
-      "id": "S004",
-      "name": "Wheel Alignment",
-      "price": 800
-    },
-    {
-      "id": "S005",
-      "name": "Brake Service",
-      "price": 1200
-    },
-    {
-      "id": "S006",
-      "name": "AC Service",
-      "price": 1800
-    }
-  ],
+
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -1,20 +1,25 @@
 const API_URL = "http://localhost:3000/bookings";
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+// GLOBAL VARIABLES
 let bookings = [];
 let currentView = "active";
 let currentSearch = "";
-let currentSort = "latest";
+let currentDate = "";
+let currentPage = 1;
+const cardsPerPage = 6;
 let currentStatus = "all";
 
-
+// LOGIN CHECK
 if (!currentUser || currentUser.role !== "support") {
     window.location.href = "/pages/login.html";
 }
 
+// GET HTML ELEMENTS
 const welcomeSupport = document.getElementById("welcomeSupport");
 const logoutBtn = document.getElementById("logoutBtn");
 const themeBtn = document.getElementById("themeBtn");
+const themeIcon = document.getElementById("themeIcon");
 const bookingContainer = document.getElementById("bookingContainer");
 const totalBookings = document.getElementById("totalBookings");
 const pendingBookings = document.getElementById("pendingBookings");
@@ -29,17 +34,70 @@ const rejectModal = new bootstrap.Modal(document.getElementById("rejectModal"));
 
 welcomeSupport.textContent =`Welcome, ${currentUser.email}`;
 
+// THEME TOGGLE
+const savedTheme = localStorage.getItem("theme") || "light";
+
+document.body.classList.remove("light-mode", "dark-mode");
+document.body.classList.add(savedTheme);
+
+if (savedTheme === "dark-mode") {
+    themeIcon.classList.remove("bi-moon-stars-fill");
+    themeIcon.classList.add("bi-sun-fill");
+}
+else {
+    themeIcon.classList.remove("bi-sun-fill");
+    themeIcon.classList.add("bi-moon-stars-fill");
+}
 themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+        themeIcon.classList.remove("bi-moon-stars-fill");
+        themeIcon.classList.add("bi-sun-fill");
+        localStorage.setItem("theme", "dark-mode");
+    }
+    else {
+
+        themeIcon.classList.remove("bi-sun-fill");
+        themeIcon.classList.add("bi-moon-stars-fill");
+        localStorage.setItem("theme", "light-mode");
+    }
+
+})
+
+// LOGOUT FUNCTION
+logoutBtn.addEventListener("click", async () => {
+
+    const result = await Swal.fire({
+        title: "Logout?",
+        text: "Are you sure you want to logout?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Logout",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#6c757d",
+        reverseButtons: true
+    });
+
+    if (result.isConfirmed) {
+
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("role");
+
+        await Swal.fire({
+            icon: "success",
+            title: "Logged Out",
+            text: "You have been logged out successfully.",
+            timer: 1500,
+            showConfirmButton: false
+        });
+
+        window.location.href = "../pages/login.html";
+    }
 });
 
-logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("role");
-    window.location.href = "/pages/login.html";
-});
-
+// DASHBOARD MENU
 menuItems.forEach(item => {
     item.addEventListener("click", () => {
         menuItems.forEach(menu =>
@@ -54,6 +112,7 @@ menuItems.forEach(item => {
 
 loadBookings();
 
+// LOAD BOOKINGS
 async function loadBookings(){
     try{
         const response = await fetch(API_URL);
@@ -71,6 +130,7 @@ async function loadBookings(){
     }
 }
 
+// UPDATE DASHBOARD STATISTICS
 function updateStatistics(){
     totalBookings.textContent = bookings.length;
     pendingBookings.textContent =bookings.filter(booking => booking.status==="Pending").length;
@@ -78,6 +138,7 @@ function updateStatistics(){
     completedBookings.textContent=bookings.filter(booking => booking.status==="Completed").length;
 }
 
+// RENDER BOOKINGS
 function renderBookings() {
     bookingContainer.innerHTML = "";
     let filteredBookings = [...bookings];
@@ -92,6 +153,7 @@ function renderBookings() {
         filteredBookings = filteredBookings.filter(booking =>booking.status === "Completed" ||booking.status === "Rejected");
     }
 
+    // SEARCH FILTER
     if (currentSearch !== "") 
     {
         filteredBookings = filteredBookings.filter(booking =>booking.customerName.toLowerCase().includes(currentSearch)||
@@ -99,23 +161,18 @@ function renderBookings() {
         booking.service.toLowerCase().includes(currentSearch));
     }
 
+    // DATE FILTER
+    if(currentDate !== "")
+    {
+        filteredBookings = filteredBookings.filter(booking =>booking.bookingDate.startsWith(currentDate));
+    }
+
+    // STATUS FILTER
     if (currentStatus !== "all") 
     {
         filteredBookings = filteredBookings.filter(booking => booking.status === currentStatus);
     }
 
-    switch (currentSort) 
-    {
-        case "oldest":
-            filteredBookings.sort((a, b) =>
-                new Date(a.bookingDate)-new Date(b.bookingDate));
-            break;
-
-        case "customer":
-            filteredBookings.sort((a, b) =>
-                a.customerName.localeCompare(b.customerName));
-            break;
-    }
 
     if (filteredBookings.length === 0) 
     {
@@ -130,7 +187,12 @@ function renderBookings() {
         return;
     }
 
-    filteredBookings.forEach(booking => {
+    const totalPages = Math.ceil(filteredBookings.length / cardsPerPage);
+    const start = (currentPage - 1) * cardsPerPage;
+    const end = start + cardsPerPage;
+    const pageBookings = filteredBookings.slice(start, end);
+
+    pageBookings.forEach(booking => {
         let badgeClass = "";
         switch (booking.status) 
         {
@@ -172,6 +234,7 @@ function renderBookings() {
         </div>
         `;
     });
+    renderPagination(totalPages);
 }
 
 searchBooking.addEventListener("input", function () {
@@ -179,8 +242,9 @@ searchBooking.addEventListener("input", function () {
     renderBookings();
 });
 
-sortBookings.addEventListener("change", function () {
-    currentSort = this.value;
+document.getElementById("dateFilter").addEventListener("change", function () {
+    currentDate = this.value;
+    currentPage = 1;
     renderBookings();
 });
 
@@ -196,6 +260,7 @@ bookingContainer.addEventListener("click", function (e) {
     showBookingDetails(card.dataset.id);
 });
 
+// SHOW BOOKING DETAILS
 async function showBookingDetails(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`);
@@ -293,6 +358,7 @@ async function showBookingDetails(id) {
     }
 }
 
+// ACCEPT BOOKING
 async function acceptBooking(id) {
     const booking = bookings.find(booking => booking.id === id);
     booking.status = "Accepted";
@@ -320,6 +386,7 @@ async function acceptBooking(id) {
     loadBookings();
 }
 
+// OPEN REJECT MODAL
 function openRejectModal(id){
     bookingModal.hide();
     document.getElementById("rejectBookingId").value=id;
@@ -330,6 +397,8 @@ function openRejectModal(id){
 }
 
 document.getElementById("confirmReject").addEventListener("click", rejectBooking);
+
+// REJECT BOOKING
 async function rejectBooking(){
     const id=document.getElementById("rejectBookingId").value;
     const reason=document.getElementById("rejectReason").value.trim();
@@ -372,6 +441,7 @@ async function rejectBooking(){
     loadBookings();
 }
 
+// COMPLETE BOOKING
 async function completeBooking(id){
     const booking=bookings.find(booking=>booking.id===id);
     booking.status="Completed";
@@ -393,5 +463,31 @@ async function completeBooking(id){
         allowOutsideClick: false
     });
     loadBookings();
+}
+
+// CHANGE PAGE
+function changePage(page){
+    currentPage = page;
+    renderBookings();
+}
+
+// RENDER PAGINATION
+function renderPagination(totalPages){
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    if(totalPages <= 1) return;
+
+    for(let i = 1; i <= totalPages; i++){
+        pagination.innerHTML += `
+        <li class="page-item ${currentPage===i ? "active":""}">
+            <button
+                class="page-link"
+                onclick="changePage(${i})">
+                ${i}
+            </button>
+        </li>
+        `;
+    }
 }
 

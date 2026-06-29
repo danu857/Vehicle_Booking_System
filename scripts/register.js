@@ -1,3 +1,4 @@
+// THEME TOGGLE
 const themeToggle = document.getElementById("themeBtn");
 
 themeToggle.addEventListener("click", () => {
@@ -17,62 +18,54 @@ themeToggle.addEventListener("click", () => {
 });
 
 $(document).ready(function () {
-
     $("#name,#email,#phone,#address,#password,#confirmPassword")
         .on("input", function () {
-
             const fieldId = $(this).attr("id");
-
             $("#" + fieldId + "Error").text("");
-
         });
 
+    // PASSWORD VISIBILITY TOGGLE
     $("#togglePassword").click(function () {
 
         const passwordField = $("#password");
         const icon = $(this).find("i");
 
-        if (passwordField.attr("type") === "password") {
-
+        if (passwordField.attr("type") === "password") 
+        {
             passwordField.attr("type", "text");
-
             icon.removeClass("bi-eye-fill");
             icon.addClass("bi-eye-slash-fill");
 
-        } else {
-
+        } 
+        else 
+        {
             passwordField.attr("type", "password");
-
             icon.removeClass("bi-eye-slash-fill");
             icon.addClass("bi-eye-fill");
         }
-
     });
 
     $("#toggleConfirmPassword").click(function () {
-
         const passwordField = $("#confirmPassword");
         const icon = $(this).find("i");
-
-        if (passwordField.attr("type") === "password") {
-
+        if (passwordField.attr("type") === "password") 
+        {
             passwordField.attr("type", "text");
 
             icon.removeClass("bi-eye-fill");
             icon.addClass("bi-eye-slash-fill");
 
-        } else {
-
+        } 
+        else
+        {
             passwordField.attr("type", "password");
-
             icon.removeClass("bi-eye-slash-fill");
             icon.addClass("bi-eye-fill");
         }
-
     });
 
+    // REGISTRATION FORM VALIDATION
     $("#registerBtn").click(function (e) {
-
         e.preventDefault();
 
         let isValid = true;
@@ -232,15 +225,18 @@ async function saveUser() {
             icon: "success",
             title: "Registration Successful",
             text: "Your account has been created successfully.",
+            timer:1500,
             confirmButtonText: "Go to Login"
         });
+        setTimeout(()=>{
+            window.location.href = "../pages/index.html";
 
-        window.location.href = "/pages/login.html";
+        },2000);
 
     }
     catch (error) 
     {
-        Swal.fire({
+        await Swal.fire({
             icon: "error",
             title: "Server Error",
             text: "JSON Server is not running."

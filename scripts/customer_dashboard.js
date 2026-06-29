@@ -3,7 +3,6 @@ const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let bookings = [];
 let currentView = "active";
 let currentSearch = "";
-let currentSort = "latest";
 
 if(!currentUser) 
 {
@@ -22,43 +21,137 @@ const completedBookings = document.getElementById("completedBookings");
 const activeTab = document.getElementById("activeTab");
 const historyTab = document.getElementById("historyTab");
 const searchBooking = document.getElementById("searchBooking");
-const sortBooking = document.getElementById("sortBooking");
 const bookingForm = document.getElementById("bookingForm");
 const bookingModalElement = document.getElementById("bookingModal");
 const detailsModalElement = document.getElementById("detailsModal");
 const bookingModal = new bootstrap.Modal(bookingModalElement);
 const detailsModal = new bootstrap.Modal(detailsModalElement);
 
+// CHECK USER LOGIN
 welcomeUser.textContent=`Welcome, ${currentUser.name}`;
 
+// LOGIN GREETING
+function showLoginGreeting() {
+
+    // Unique key for each customer
+    const loginKey = `loginCount_${currentUser.id}`;
+    let loginCount = Number(localStorage.getItem(loginKey)) || 0;
+    loginCount++;
+
+    localStorage.setItem(loginKey, loginCount);
+    if (loginCount === 1) {
+        Swal.fire({
+            icon: "success",
+            title: `Welcome, ${currentUser.name}!`,
+            html: `
+                <h5>Your account is ready.</h5>
+                <p>Thank you for choosing our Vehicle Service Booking System.</p>
+                <p>We hope you have a great experience!</p>
+            `,
+            confirmButtonText: "Let's Go"
+        });
+    }
+    else if (loginCount === 5) {
+        Swal.fire({
+            icon: "info",
+            title: "Great to See You Again!",
+            html: `
+                <h5>Hi ${currentUser.name},</h5>
+                <p>You've visited us <b>5 times</b>.</p>
+                <p>Thank you for trusting our service.</p>
+                <p>We appreciate your continued support!</p>
+            `,
+            confirmButtonText: "Continue"
+        });
+
+    }
+    else if (loginCount === 10) 
+    {
+        Swal.fire({
+            icon: "success",
+            title: "You're One of Our Valued Customers",
+            html: `
+                <h5>Welcome back, ${currentUser.name}!</h5>
+                <p>This is your <b>10th login</b>.</p>
+                <p>Your continued trust means a lot to us.</p>
+                <p>We look forward to serving you for many more journeys.</p>
+            `,
+            confirmButtonText: "Thank You!"
+        });
+    }
+}
+
 const today = new Date();
+// SET MINIMUM BOOKING DATE
 
 today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
 
 document.getElementById("bookingDate").min=today.toISOString().slice(0,16);
 
+// LOAD SAVED THEME
+const savedTheme = localStorage.getItem("theme") || "light";
+
+document.body.classList.remove("light-mode", "dark-mode");
+document.body.classList.add(savedTheme);
+
+if (savedTheme === "dark-mode") {
+    themeIcon.classList.remove("bi-moon-stars-fill");
+    themeIcon.classList.add("bi-sun-fill");
+}
+else {
+    themeIcon.classList.remove("bi-sun-fill");
+    themeIcon.classList.add("bi-moon-stars-fill");
+}
 themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
     document.body.classList.toggle("dark-mode");
-    if(document.body.classList.contains("dark-mode"))
-    {
+    if (document.body.classList.contains("dark-mode")) {
         themeIcon.classList.remove("bi-moon-stars-fill");
         themeIcon.classList.add("bi-sun-fill");
+        localStorage.setItem("theme", "dark-mode");
     }
-    else
-    {
+    else {
+
         themeIcon.classList.remove("bi-sun-fill");
         themeIcon.classList.add("bi-moon-stars-fill");
+        localStorage.setItem("theme", "light-mode");
+    }
+
+})
+
+//LOGOUT BUTTON
+logoutBtn.addEventListener("click", async () => {
+
+    const result = await Swal.fire({
+        title: "Logout?",
+        text: "Are you sure you want to logout?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Logout",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#6c757d",
+        reverseButtons: true
+    });
+
+    if (result.isConfirmed) {
+
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("role");
+
+        await Swal.fire({
+            icon: "success",
+            title: "Logged Out",
+            text: "You have been logged out successfully.",
+            timer: 1500,
+            showConfirmButton: false
+        });
+
+        window.location.href = "/pages/login.html";
     }
 });
 
-logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("role");
-    window.location.href = "/pages/login.html";
-});
-
-
+//LOAD BOOKINGS FUNCTION
 document.getElementById("service").addEventListener("change", function(){
     const selectedOption=this.options[this.selectedIndex];
     document.getElementById("amount").value=selectedOption.dataset.price || "";
@@ -74,6 +167,8 @@ async function loadBookings() {
         bookings = await response.json();
         updateStatistics();
         renderBookings();
+        loadProfile();
+        showLoginGreeting();
     }
 
     catch (error) {
@@ -85,13 +180,18 @@ async function loadBookings() {
     }
 }
 
+//STAT CARDS FUNCTION
 function updateStatistics() {
     totalBookings.textContent=bookings.length;
+    document.getElementById("totalServices").textContent =bookings.length;
+    const totalAmount = bookings.reduce((sum, booking) => {return sum + Number(booking.amount);}, 0);
+    document.getElementById("totalAmount").textContent ="₹" + totalAmount.toLocaleString("en-IN");
     pendingBookings.textContent=bookings.filter(booking => booking.status === "Pending").length;
     acceptedBookings.textContent =bookings.filter(booking => booking.status === "Accepted").length;
     completedBookings.textContent =bookings.filter(booking => booking.status === "Completed").length;
 }
 
+// RENDER BOOKINGS
 function renderBookings() {
     bookingContainer.innerHTML = "";
     let filteredBookings = [...bookings];
@@ -111,29 +211,6 @@ if (currentSearch !== "")
         booking.vehicleNumber.toLowerCase().includes(currentSearch)||
         booking.service.toLowerCase().includes(currentSearch)
     );
-}
-
-
-switch(currentSort)
-{
-    case "latest":
-        filteredBookings.sort((a,b)=>
-            new Date(b.bookingDate)-new Date(a.bookingDate));
-        break;
-
-    case "oldest":
-        filteredBookings.sort((a,b)=>
-            new Date(a.bookingDate)-new Date(b.bookingDate)
-        );
-        break;
-
-    case "service":
-        filteredBookings.sort((a,b)=>a.service.localeCompare(b.service));
-        break;
-
-    case "status":
-        filteredBookings.sort((a,b)=>a.status.localeCompare(b.status));
-        break;
 }
 
     if (filteredBookings.length === 0) 
@@ -211,6 +288,7 @@ switch(currentSort)
     });
 }
 
+// TAB SWITCHING
 activeTab.addEventListener("click", () => {
     currentView = "active";
     activeTab.classList.add("active");
@@ -226,15 +304,13 @@ historyTab.addEventListener("click", () => {
     renderBookings();
 });
 
+// SEARCH BOOKINGS
 searchBooking.addEventListener("input", function(){
     currentSearch =this.value.toLowerCase().trim();
     renderBookings();
 });
 
-sortBooking.addEventListener("change", function(){
-    currentSort =this.value;
-    renderBookings();
-});
+// BOOKING FORM SUBMISSION
 
 bookingForm.addEventListener("submit", async function(e){
     e.preventDefault();
@@ -274,6 +350,19 @@ bookingForm.addEventListener("submit", async function(e){
     {
         document.getElementById("bookingDateError").textContent="Select booking date";
         valid=false;
+    }
+    if (bookingDate !== "") 
+    {
+        const selectedDate = new Date(bookingDate);
+        const currentDate = new Date();
+        currentDate.setSeconds(0, 0);
+
+        if (selectedDate < currentDate) 
+        {
+            document.getElementById("bookingDateError").textContent ="Past dates and time are not allowed";
+            valid = false;
+        }
+
     }
 
     if(!valid) return;
@@ -384,6 +473,7 @@ async function deleteBooking(id){
     loadBookings();
 }
 
+// BOOKING CARD CLICK EVENT
 bookingContainer.addEventListener("click", async function(e){
     const card = e.target.closest(".booking-card");
     if(!card) return;
@@ -507,4 +597,13 @@ async function showBookingDetails(id){
             title:"Unable to load booking"
         });
     }
+}
+
+function loadProfile() {
+    document.getElementById("profileName").textContent =currentUser.name;
+    document.getElementById("profileFullName").textContent =currentUser.name;
+    document.getElementById("profileEmail").textContent =currentUser.email;
+    document.getElementById("profilePhone").textContent =currentUser.phone;
+    document.getElementById("profileId").textContent =currentUser.id;
+    document.getElementById("profileBookings").textContent =bookings.length;
 }

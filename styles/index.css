@@ -4,8 +4,18 @@ body{
 }
 
 body.light-mode{
-    background-image: url(/assets/img_light.png);
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
     color:#000000;
+}
+
+.light-mode .hero{
+    background-image: url(../assets/img_light.png);
+    min-height: 100vh;
+}
+
+.dark-mode .hero{
+    background-image: url(../assets/img_dark.png);
+    min-height: 100vh;
 }
 
 .light-mode .card{
@@ -48,12 +58,12 @@ body.dark-mode #themeBtn{
     color:rgb(0, 0, 0)
 }
 
-.hero{
-    padding:100px 20px;
+.container-custom{
+    margin-top: 100px;
 }
 
 body.dark-mode{
-    background-image: url(/assets/img_dark.png);
+    background-color: #000000;
     color:white;
 }
 
@@ -73,4 +83,9 @@ body.dark-mode{
 
 .dark-mode footer{
     background:black !important;
+}
+
+.card{
+    height:100px;
+    padding:30px;
 }
